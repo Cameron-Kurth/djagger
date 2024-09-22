@@ -98,7 +98,7 @@ def get_pattern_str(pattern: Union[RegexPattern, RoutePattern]) -> str:
         return pattern._regex
 
     elif isinstance(pattern, RoutePattern):
-        return _route_to_regex(pattern._route)[0]
+        return _route_to_regex(pattern._route, pattern._is_endpoint)[0]
 
     raise TypeError(
         f"pattern is of type {type(pattern)}. Needs to be RegexPattern or RoutePattern"
@@ -106,7 +106,6 @@ def get_pattern_str(pattern: Union[RegexPattern, RoutePattern]) -> str:
 
 
 def list_urls(resolver: URLResolver, prefix="") -> List[Tuple[str, URLPattern]]:
-
     """Returns a list of tuples containing the 'cleaned' full url path and the
     corresponding URLPattern object
     """
@@ -284,7 +283,6 @@ def field_to_pydantic_args(f: fields.Field) -> Dict:
 
 
 def schema_from_serializer(s: serializers.Serializer) -> ModelMetaclass:
-
     """Converts a DRF Serializer type into a pydantic model."""
 
     name = s.__class__.__name__
