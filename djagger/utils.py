@@ -98,7 +98,7 @@ def get_pattern_str(pattern: Union[RegexPattern, RoutePattern]) -> str:
         return pattern._regex
 
     elif isinstance(pattern, RoutePattern):
-        return _route_to_regex(pattern._route, pattern._is_endpoint)[0]
+        return _route_to_regex(pattern._route, False)[0]
 
     raise TypeError(
         f"pattern is of type {type(pattern)}. Needs to be RegexPattern or RoutePattern"
